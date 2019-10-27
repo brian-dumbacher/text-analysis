@@ -181,7 +181,7 @@ class EnglishStemmer():
         "alumnae": "alumn",
         "alumnus": "alumn",
         "alumni": "alumn",
-        "buses":, "bus",
+        "buses": "bus",
         "busy": "busy",
         "financial": "financ",
         "financier": "financ",
