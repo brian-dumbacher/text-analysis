@@ -154,14 +154,41 @@ class EnglishStemmer():
         "succeeds": "succeed",
         "succeeded": "succeed",
         "succeeding": "succeed",
+        #Brian's edits
         "hospitality": "hospitaliti",
         "university": "universiti",
         "universities": "universiti",
         "bearing": "bearing",
         "bearings": "bearing",
+        "heading": "heading",
+        "headings": "heading",
+        "holding": "holding",
+        "holdings": "holding",
         "marketing": "marketing",
-        "marketings": "marketing",
+        "warehousing": "warehous",
         "gases": "gas",
+        "paste": "paste",
+        "pasted": "paste",
+        "pastes": "paste",
+        "pasting": "paste",
+        "alumna": "alumn",
+        "alumnae": "alumn",
+        "alumnus": "alumn",
+        "alumni": "alumn",
+        "financial": "financ",
+        "financier": "financ",
+        "financiers": "financ",
+        "organization": "organiz",
+        "organizations": "organiz",
+        "organize": "organiz",
+        "organized": "organiz",
+        "organizes": "organiz",
+        "organizing": "organiz",
+        "made": "manufactur",
+        "makes": "manufactur",
+        "make": "manufactur",
+        "making": "manufactur",
+        "wholesaled": "wholesal",
     }
 
     def _r1r2_standard(self, word, vowels):
@@ -597,14 +624,19 @@ class EnglishStemmer():
 def main():
     p = EnglishStemmer()
     continueFlag = True
+    query = "Sentence (q to quit):  "
     while continueFlag:
-        word = input("Word (q to quit):  ")
-        if word == "q":
+        sentence = input(query)
+        if sentence == "q":
             continueFlag = False
         else:
-            word = word.lower()
-            word = re.sub(r"[^a-z]+", "", word)
-            print(p.stem(word))
+            sentence = sentence.lower()
+            sentence = re.sub(r"[,\./\\]+", " ", sentence)
+            sentence = re.sub(r"[^ a-z]+", "", sentence)
+            sentence = re.sub(r"\s+", " ", sentence)
+            sentence = sentence.strip()
+            sentenceNew = " ".join([p.stem(word) for word in sentence.split(" ")])
+            print(len(query) * " " + sentenceNew)
     return
 
 if __name__ == "__main__":
