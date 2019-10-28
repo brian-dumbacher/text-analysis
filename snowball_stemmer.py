@@ -191,6 +191,7 @@ class SnowballStemmer():
         "analysis": "analyz",
         "animal": "animal",
         "animals": "animal",
+        "bureaus": "bureau",
         "buses": "bus",
         "busy": "busy",
         "financial": "financ",
