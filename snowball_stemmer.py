@@ -16,7 +16,7 @@
 
 import re
 
-class EnglishStemmer():
+class SnowballStemmer():
 
     """
     The English Snowball stemmer.
@@ -189,6 +189,8 @@ class EnglishStemmer():
         "alumni": "alumn",
         "analyses": "analyz",
         "analysis": "analyz",
+        "animal": "animal",
+        "animals": "animal",
         "buses": "bus",
         "busy": "busy",
         "financial": "financ",
@@ -643,7 +645,7 @@ class EnglishStemmer():
         return word
 
 def main():
-    p = EnglishStemmer()
+    snowball = SnowballStemmer()
     continueFlag = True
     query = "Sentence (q to quit):  "
     while continueFlag:
@@ -656,7 +658,7 @@ def main():
             sentence = re.sub(r"[^ a-z]+", "", sentence)
             sentence = re.sub(r"\s+", " ", sentence)
             sentence = sentence.strip()
-            sentenceNew = " ".join([p.stem(word) for word in sentence.split(" ")])
+            sentenceNew = " ".join([snowball.stem(word) for word in sentence.split(" ")])
             print(len(query) * " " + sentenceNew)
     return
 
