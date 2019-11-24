@@ -27,7 +27,7 @@ class TextCleaner():
     def standardize(self, text):
         text_stand = text.lower()
         text_stand = re.sub(r"\b(anti|non)[ -]([a-z])", r"\1\2", text_stand)
-        text_stand = re.sub(r"[^a-z]+", r" ", text_stand)
+        text_stand = re.sub(r"[^a-z]+", " ", text_stand)
         return text_stand.strip()
     
     def tokenize(self, text):
