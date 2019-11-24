@@ -26,6 +26,7 @@ class TextCleaner():
     
     def standardize(self, text):
         text_stand = text.lower()
+        text_stand = re.sub(r"\b(anti|non)[ -]([a-z])", r"\1\2", text_stand)
         text_stand = re.sub(r"[^a-z]+", r" ", text_stand)
         return text_stand.strip()
     
@@ -50,7 +51,7 @@ class TextCleaner():
         tokens_lemma = [self.lemmatize(token) for token in tokens_stem]
         return " ".join(tokens_lemma)
     
-    def get_ngrams(self, tokens, n, order):
+    def get_ngrams(self, tokens, n, order=True):
         ngrams = []
         n_tokens = len(tokens)
         if n_tokens < n:
@@ -64,7 +65,7 @@ class TextCleaner():
                 ngrams.append(ngram_join)
         return ngrams
     
-    def get_features(self, tokens, ns, order):
+    def get_features(self, tokens, ns, order=True):
         features = []
         for n in ns:
             for ngram in self.get_ngrams(tokens, n, order):
