@@ -1,2 +1,2 @@
-# word-stemming
-This repository contains tools for performing word stemming
+# text-analysis
+This repository contains tools for conducting text analysis
