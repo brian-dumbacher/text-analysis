@@ -20,19 +20,35 @@ class TextCleaner():
         "what"
     ]
 
+    __lemmas = {
+        "auto": "car"
+    }
+    
     def standardize(self, text):
-        text = text.lower()
-        text = re.sub(r"[^a-z]+", r" ", text)
-        text = text.strip()
-        return text
+        text_stand = text.lower()
+        text_stand = re.sub(r"[^a-z]+", r" ", text_stand)
+        return text_stand.strip()
     
     def tokenize(self, text):
         if text == "":
             return []
         return text.split(" ")
     
-    def remove_stop_words(self, tokens):
-        return [token for token in tokens if token not in self.__stop_words]
+    def stem(self, token):
+        return token
+    
+    def lemmatize(self, token):
+        if token in self.__lemmas:
+            return self.__lemmas[token]
+        return token
+    
+    def clean(self, text)
+        text_stand = self.standardize(text)
+        tokens = self.tokenize(text_stand)
+        tokens_stop = [token for token in tokens if token not in self.__stop_words]
+        tokens_stem = [self.stem(token) for token in tokens_stop]
+        tokens_lemma = [self.lemmatize(token) for token in tokens_stem]
+        return " ".join(tokens_lemma)
     
     def get_ngrams(self, tokens, n, order):
         ngrams = []
@@ -40,21 +56,20 @@ class TextCleaner():
         if n_tokens < n:
             return ngrams
         for i in range(n_tokens - n + 1):
-            ngram = tokens[i, i + n]
+            ngram = tokens[i:i + n]
             if not order:
                 ngram = sorted(ngram)
-            ngrams.append("_".join(ngram))
+            ngram_join = "_".join(ngram)
+            if ngram_join not in ngrams:
+                ngrams.append(ngram_join)
         return ngrams
     
     def get_features(self, tokens, ns, order):
         features = []
         for n in ns:
-            features.extend(self.get_ngrams(tokens, n, order))
-        return features
+            for ngram in self.get_ngrams(tokens, n, order):
+                features.append((ngram, True))
+        return dict(features)
     
-    def clean(self, text)
-        text_stand = self.standardize(text)
-        tokens = self.tokenize(text_stand)
-        tokens_no_stop = self.remove_stop_words(tokens)
-        return tokens_no_stop
+
     
