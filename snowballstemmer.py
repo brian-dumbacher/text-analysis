@@ -113,6 +113,7 @@ class SnowballStemmer():
         'ic',
     )
     __step5_suffixes = ("e", "l")
+    __step6_suffixes = ('graphi', 'logi', 'logist', 'nomi', 'nomist')
     __special_words = {
         "skis": "ski",
         "skies": "sky",
@@ -650,6 +651,18 @@ class SnowballStemmer():
 
         word = word.replace("Y", "y")
 
+        # STEP 6
+        if word.endswith('graphi') and len(word) >= 9:
+            word = word[:-1]
+        elif word.endswith('logi') and len(word) >= 7:
+            word = word[:-1]
+        elif word.endswith('logist') and len(word) >= 9:
+            word = word[:-3]
+        elif word.endswith('nomi') and len(word) >= 7:
+            word = word[:-1]
+        elif word.endswith('nomist') and len(word) >= 9:
+            word = word[:-3]
+        
         return word
 
 def main():
