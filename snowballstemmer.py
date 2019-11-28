@@ -115,14 +115,16 @@ class SnowballStemmer():
     __step5_suffixes = ("e", "l")
     __step6_suffixes = (
         'graphi',
-        'tri',
-        'trist',
         'logi',
         'logist',
         'nomi',
         'nomist',
+        'pathi',
+        'pathet',
         'scopi',
         'therapist',
+        'tri',
+        'trist',
         'trician',
     )
     __special_words = {
@@ -665,12 +667,6 @@ class SnowballStemmer():
         # STEP 6
         if word.endswith('graphi') and len(word) >= 9:
             word = word[:-1]
-        elif word.endswith('tri') and len(word) >= 8:
-            if word[-4] in ('a', 'e'):
-                word = word[:-1]
-        elif word.endswith('trist') and len(word) >= 10:
-            if word[-6] in ('a', 'e'):
-                word = word[:-3]
         elif word.endswith('logi') and len(word) >= 7:
             word = word[:-1]
         elif word.endswith('logist') and len(word) >= 9:
@@ -679,10 +675,22 @@ class SnowballStemmer():
             word = word[:-1]
         elif word.endswith('nomist') and len(word) >= 9:
             word = word[:-3]
+        elif word.endswith('pathi') and len(word) >= 6:
+            word = word[:-1]
+        elif word.endswith('pathet') and len(word) >= 7:
+            word = word[:-2]
         elif word.endswith('scopi') and len(word) >= 8:
+            word = word[:-1]
+        elif word.endswith('therapi'):
             word = word[:-1]
         elif word.endswith('therapist'):
             word = word[:-3]
+        elif word.endswith('tri') and len(word) >= 8:
+            if word[-4] in ('a', 'e'):
+                word = word[:-1]
+        elif word.endswith('trist') and len(word) >= 10:
+            if word[-6] in ('a', 'e'):
+                word = word[:-3]
         elif word.endswith('trician') and len(word) >= 10:
             if word[-8] in ('a', 'e'):
                  word = word[:-5]
