@@ -28,17 +28,13 @@ class TextCleaner():
         return text_stand.strip()
     
     def tokenize(self, text):
-        if text == "":
-            return []
-        return text.split(" ")
+        return [] if text == "" else text.split(" ")
     
     def stem(self, token):
         return token
     
     def lemmatize(self, token):
-        if token in self.__lemmas:
-            return self.__lemmas[token]
-        return token
+        return self.__lemmas[token] if token in self.__lemmas else token
     
     def clean(self, text)
         text_stand = self.standardize(text)
@@ -63,7 +59,5 @@ class TextCleaner():
         return ngrams
     
     def get_features(self, tokens, ns, order=True):
-        features = []
-        for n in ns:
-            features.extend([(ngram, True) for ngram in self.get_ngrams(tokens, n, order)])
+        features = [(ngram, True) for n in ns for ngram in self.get_ngrams(tokens, n, order)]
         return dict(features)
