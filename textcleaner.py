@@ -17,7 +17,7 @@ class TextCleaner():
         "the",
         "what"
     ]
-    __maps = {
+    __lemmas = {
         "auto": "car"
     }
     
@@ -35,9 +35,9 @@ class TextCleaner():
     def stem(self, token):
         return token
     
-    def map(self, token):
-        if token in self.__maps:
-            return self.__maps[token]
+    def lemmatize(self, token):
+        if token in self.__lemmas:
+            return self.__lemmas[token]
         return token
     
     def clean(self, text)
@@ -45,8 +45,8 @@ class TextCleaner():
         tokens = self.tokenize(text_stand)
         tokens_stop = [token for token in tokens if token not in self.__stop_words]
         tokens_stem = [self.stem(token) for token in tokens_stop]
-        tokens_map = [self.map(token) for token in tokens_stem]
-        return " ".join(tokens_map)
+        tokens_lemma = [self.lemmatize(token) for token in tokens_stem]
+        return " ".join(tokens_lemma)
     
     def get_ngrams(self, tokens, n, order=True):
         ngrams = []
