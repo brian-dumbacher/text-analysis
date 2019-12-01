@@ -68,9 +68,5 @@ class TextCleaner():
     def get_features(self, tokens, ns, order=True):
         features = []
         for n in ns:
-            for ngram in self.get_ngrams(tokens, n, order):
-                features.append((ngram, True))
+            features.extend([(ngram, True) for ngram in self.get_ngrams(tokens, n, order)])
         return dict(features)
-    
-
-    
