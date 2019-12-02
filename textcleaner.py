@@ -106,6 +106,7 @@ class TextCleaner():
     )
     __step5_suffixes = ("e", "l")
     __step6_suffixes = (
+        "curist",
         "graphi",
         "logi",
         "logist",
@@ -113,12 +114,15 @@ class TextCleaner():
         "nomist",
         "pathi",
         "pathet",
+        "physicist",
         "scopi",
+        "therapeut",
         "therapi",
         "therapist",
         "tri",
         "trist",
         "trician",
+        "turist",
     )
     __special_stems = {
         "skis": "ski",
@@ -482,7 +486,9 @@ class TextCleaner():
         # STEP 6
         for suffix in self.__step6_suffixes:
             if token.endswith(suffix):
-                if suffix == "graphi" and len(token) >= 9:
+                if suffix == "curist" and len(token) >= 8:
+                    token = token[:-3]
+                elif suffix == "graphi" and len(token) >= 9:
                     token = token[:-1]
                 elif suffix == "logi" and len(token) >= 7:
                     token = token[:-1]
@@ -496,8 +502,12 @@ class TextCleaner():
                     token = token[:-1]
                 elif suffix == "pathet" and len(token) >= 7:
                     token = token[:-2]
+                elif suffix == "physicist":
+                    token = token[:-5]
                 elif suffix == "scopi" and len(token) >= 8:
                     token = token[:-1]
+                elif suffix == "therapeut" and len(token) >= 7:
+                    token = token[:-3]
                 elif suffix == "therapi":
                     token = token[:-1]
                 elif suffix == "therapist":
@@ -508,6 +518,8 @@ class TextCleaner():
                     token = token[:-3]
                 elif suffix == "trician" and len(token) >= 10 and token[-8] in "ae":
                     token = token[:-5]
+                elif suffix == "turist" and len(token) >= 8:
+                    token = token[:-3]
                 break
         
         return token
