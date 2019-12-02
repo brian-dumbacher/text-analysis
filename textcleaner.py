@@ -5,17 +5,42 @@ class TextCleaner():
         "a",
         "an",
         "and",
+        "b",
         "by",
+        "c",
+        "d",
+        "e",
+        "f",
         "for",
         "from",
+        "g",
+        "h",
+        "i",
         "if",
         "in",
         "is",
+        "j",
+        "k",
+        "l",
+        "m",
+        "n",
+        "o",
         "or",
+        "p",
+        "q",
+        "r",
+        "s",
         "so",
+        "t",
         "that",
         "the",
-        "what"
+        "u",
+        "v",
+        "w",
+        "what",
+        "x",
+        "y",
+        "z",
     )
     __vowels = "aeiouy"
     __double_consonants = ("bb", "dd", "ff", "gg", "mm", "nn", "pp", "rr", "tt")
@@ -23,76 +48,77 @@ class TextCleaner():
     __step1a_suffixes = ("sses", "ied", "ies", "us", "ss", "s")
     __step1b_suffixes = ("eedly", "ingly", "edly", "eed", "ing", "ed")
     __step2_suffixes = (
-        'ization',
-        'ational',
-        'fulness',
-        'ousness',
-        'iveness',
-        'tional',
-        'biliti',
-        'lessli',
-        'entli',
-        'ation',
-        'alism',
-        'aliti',
-        'ousli',
-        'iviti',
-        'fulli',
-        'enci',
-        'anci',
-        'abli',
-        'izer',
-        'ator',
-        'alli',
-        'bli',
-        'ogi',
-        'li',
+        "ization",
+        "ational",
+        "fulness",
+        "ousness",
+        "iveness",
+        "tional",
+        "biliti",
+        "lessli",
+        "entli",
+        "ation",
+        "alism",
+        "aliti",
+        "ousli",
+        "iviti",
+        "fulli",
+        "enci",
+        "anci",
+        "abli",
+        "izer",
+        "ator",
+        "alli",
+        "bli",
+        "ogi",
+        "li",
     )
     __step3_suffixes = (
-        'ational',
-        'tional',
-        'alize',
-        'icate',
-        'iciti',
-        'ative',
-        'ical',
-        'ness',
-        'ful',
+        "ational",
+        "tional",
+        "alize",
+        "icate",
+        "iciti",
+        "ative",
+        "ical",
+        "ness",
+        "ful",
     )
     __step4_suffixes = (
-        'ement',
-        'ance',
-        'ence',
-        'able',
-        'ible',
-        'ment',
-        'ant',
-        'ent',
-        'ism',
-        'ate',
-        'iti',
-        'ous',
-        'ive',
-        'ize',
-        'ion',
-        'al',
-        'er',
-        'ic',
+        "ement",
+        "ance",
+        "ence",
+        "able",
+        "ible",
+        "ment",
+        "ant",
+        "ent",
+        "ism",
+        "ate",
+        "iti",
+        "ous",
+        "ive",
+        "ize",
+        "ion",
+        "al",
+        "er",
+        "ic",
     )
     __step5_suffixes = ("e", "l")
     __step6_suffixes = (
-        'graphi',
-        'logi',
-        'logist',
-        'nomi',
-        'nomist',
-        'pathi',
-        'pathet',
-        'scopi',
-        'therapist',
-        'tri',
-        'trist',
-        'trician',
+        "graphi",
+        "logi",
+        "logist",
+        "nomi",
+        "nomist",
+        "pathi",
+        "pathet",
+        "scopi",
+        "therapi",
+        "therapist",
+        "tri",
+        "trist",
+        "trician",
     )
     __special_stems = {
         "skis": "ski",
@@ -148,9 +174,6 @@ class TextCleaner():
         "coatings": "coating",
         "dressing": "dressing",
         "dressings": "dressing",
-        "engineer": "engineer",
-        "engineering": "engineer",
-        "engineers": "engineer",
         "heading": "heading",
         "headings": "heading",
         "holding": "holding",
@@ -184,14 +207,14 @@ class TextCleaner():
         "bureaus": "bureau",
         "buses": "bus",
         "busy": "busy",
+        "engineer": "engineer",
+        "engineered": "engineer",
+        "engineering": "engineer",
+        "engineers": "engineer",
         "financial": "financ",
         "financier": "financ",
         "financiers": "financ",
         "gases": "gas",
-        "made": "manufactur",
-        "makes": "manufactur",
-        "make": "manufactur",
-        "making": "manufactur",
         "organization": "organiz",
         "organizations": "organiz",
         "organize": "organiz",
@@ -230,7 +253,7 @@ class TextCleaner():
                 break
         return (r1, r2)
     
-    def suffix_replace(self, original, old, new):
+    def replace_suffix(self, original, old, new):
         return original[: -len(old)] + new
     
     def stem(self, token):
@@ -241,7 +264,6 @@ class TextCleaner():
         
         if token.startswith("y"):
             token = "Y" + token[1:]
-
         for i in range(1, len(token)):
             if token[i - 1] in self.__vowels and token[i] == "y":
                 token = token[:i] + "Y" + token[i + 1:]
@@ -292,9 +314,9 @@ class TextCleaner():
             if token.endswith(suffix):
                 if suffix in ("eed", "eedly"):
                     if r1.endswith(suffix):
-                        token = self.suffix_replace(token, suffix, "ee")                            
-                        r1 = self.suffix_replace(r1, suffix, "ee") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ee") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ee")                            
+                        r1 = self.replace_suffix(r1, suffix, "ee") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ee") if len(r2) >= len(suffix) else ""
                 else:
                     for letter in token[: -len(suffix)]:
                         if letter in self.__vowels:
@@ -356,33 +378,33 @@ class TextCleaner():
                         r1 = r1[:-2]
                         r2 = r2[:-2]
                     elif suffix in ("izer", "ization"):
-                        token = self.suffix_replace(token, suffix, "ize")
-                        r1 = self.suffix_replace(r1, suffix, "ize") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ize") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ize")
+                        r1 = self.replace_suffix(r1, suffix, "ize") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ize") if len(r2) >= len(suffix) else ""
                     elif suffix in ("ational", "ation", "ator"):
-                        token = self.suffix_replace(token, suffix, "ate")
-                        r1 = self.suffix_replace(r1, suffix, "ate") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ate") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ate")
+                        r1 = self.replace_suffix(r1, suffix, "ate") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ate") if len(r2) >= len(suffix) else ""
                     elif suffix in ("alism", "aliti", "alli"):
-                        token = self.suffix_replace(token, suffix, "al")
-                        r1 = self.suffix_replace(r1, suffix, "al") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "al") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "al")
+                        r1 = self.replace_suffix(r1, suffix, "al") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "al") if len(r2) >= len(suffix) else ""
                     elif suffix == "fulness":
                         token = token[:-4]
                         r1 = r1[:-4]
                         r2 = r2[:-4]
                     elif suffix in ("ousli", "ousness"):
-                        token = self.suffix_replace(token, suffix, "ous")
-                        r1 = self.suffix_replace(r1, suffix, "ous") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ous") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ous")
+                        r1 = self.replace_suffix(r1, suffix, "ous") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ous") if len(r2) >= len(suffix) else ""
                     elif suffix in ("iveness", "iviti"):
-                        token = self.suffix_replace(wortokend, suffix, "ive")
-                        r1 = self.suffix_replace(r1, suffix, "ive") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ive") if len(r2) >= len(suffix) else "e"
+                        token = self.replace_suffix(wortokend, suffix, "ive")
+                        r1 = self.replace_suffix(r1, suffix, "ive") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ive") if len(r2) >= len(suffix) else "e"
                     elif suffix in ("biliti", "bli"):
-                        token = self.suffix_replace(token, suffix, "ble")
-                        r1 = self.suffix_replace(r1, suffix, "ble") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ble") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ble")
+                        r1 = self.replace_suffix(r1, suffix, "ble") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ble") if len(r2) >= len(suffix) else ""
                     elif suffix == "ogi" and token[-4] == "l":
                         token = token[:-1]
                         r1 = r1[:-1]
@@ -406,17 +428,17 @@ class TextCleaner():
                         r1 = r1[:-2]
                         r2 = r2[:-2]
                     elif suffix == "ational":
-                        token = self.suffix_replace(token, suffix, "ate")                            
-                        r1 = self.suffix_replace(r1, suffix, "ate") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ate") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ate")                            
+                        r1 = self.replace_suffix(r1, suffix, "ate") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ate") if len(r2) >= len(suffix) else ""
                     elif suffix == "alize":
                         token = token[:-3]
                         r1 = r1[:-3]
                         r2 = r2[:-3]
                     elif suffix in ("icate", "iciti", "ical"):
-                        token = self.suffix_replace(token, suffix, "ic")                            
-                        r1 = self.suffix_replace(r1, suffix, "ic") if len(r1) >= len(suffix) else ""
-                        r2 = self.suffix_replace(r2, suffix, "ic") if len(r2) >= len(suffix) else ""
+                        token = self.replace_suffix(token, suffix, "ic")                            
+                        r1 = self.replace_suffix(r1, suffix, "ic") if len(r1) >= len(suffix) else ""
+                        r2 = self.replace_suffix(r2, suffix, "ic") if len(r2) >= len(suffix) else ""
                     elif suffix in ("ful", "ness"):
                         token = token[: -len(suffix)]
                         r1 = r1[: -len(suffix)]
@@ -458,35 +480,35 @@ class TextCleaner():
         token = token.replace("Y", "y")
 
         # STEP 6
-        if token.endswith('graphi') and len(token) >= 9:
-            token = token[:-1]
-        elif token.endswith('logi') and len(token) >= 7:
-            token = token[:-1]
-        elif token.endswith('logist') and len(token) >= 9:
-            token = token[:-3]
-        elif token.endswith('nomi') and len(token) >= 7:
-            token = token[:-1]
-        elif token.endswith('nomist') and len(token) >= 9:
-            token = token[:-3]
-        elif token.endswith('pathi') and len(token) >= 6:
-            token = token[:-1]
-        elif token.endswith('pathet') and len(token) >= 7:
-            token = token[:-2]
-        elif token.endswith('scopi') and len(token) >= 8:
-            token = token[:-1]
-        elif token.endswith('therapi'):
-            token = token[:-1]
-        elif token.endswith('therapist'):
-            token = token[:-3]
-        elif token.endswith('tri') and len(token) >= 8:
-            if token[-4] in ('a', 'e'):
-                token = token[:-1]
-        elif token.endswith('trist') and len(token) >= 10:
-            if token[-6] in ('a', 'e'):
-                token = token[:-3]
-        elif token.endswith('trician') and len(token) >= 10:
-            if token[-8] in ('a', 'e'):
-                 token = token[:-5]
+        for suffix in self.__step6_suffixes:
+            if token.endswith(suffix):
+                if suffix == "graphi" and len(token) >= 9:
+                    token = token[:-1]
+                elif suffix == "logi" and len(token) >= 7:
+                    token = token[:-1]
+                elif suffix == "logist" and len(token) >= 9:
+                    token = token[:-3]
+                elif suffix == "nomi" and len(token) >= 7:
+                    token = token[:-1]
+                elif suffix == "nomist" and len(token) >= 9:
+                    token = token[:-3]
+                elif suffix == "pathi" and len(token) >= 6:
+                    token = token[:-1]
+                elif suffix == "pathet" and len(token) >= 7:
+                    token = token[:-2]
+                elif suffix == "scopi" and len(token) >= 8:
+                    token = token[:-1]
+                elif suffix == "therapi":
+                    token = token[:-1]
+                elif suffix == "therapist":
+                    token = token[:-3]
+                elif suffix == "tri" and len(token) >= 8 and token[-4] in "ae":
+                    token = token[:-1]
+                elif suffix == "trist" and len(token) >= 10 and token[-6] in "ae":
+                    token = token[:-3]
+                elif suffix == "trician" and len(token) >= 10 and token[-8] in "ae":
+                    token = token[:-5]
+                break
         
         return token
     
