@@ -1,7 +1,7 @@
 import re
 
 class TextCleaner():
-    __stop_words = [
+    __stop_words = (
         "a",
         "an",
         "and",
@@ -16,7 +16,7 @@ class TextCleaner():
         "that",
         "the",
         "what"
-    ]
+    )
     __lemmas = {
         "auto": "car"
     }
@@ -59,5 +59,4 @@ class TextCleaner():
         return ngrams
     
     def get_features(self, tokens, ns, order=True):
-        features = [(ngram, True) for n in ns for ngram in self.get_ngrams(tokens, n, order)]
-        return dict(features)
+        return {ngram:True for n in ns for ngram in self.get_ngrams(tokens, n, order)}
